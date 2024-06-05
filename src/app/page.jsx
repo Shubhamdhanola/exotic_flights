@@ -1,5 +1,3 @@
-import LogoutForm from "../components/logoutForm";
-
 
 export default function Home() {
   return (

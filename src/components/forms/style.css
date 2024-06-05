@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  #authForm {
+    @apply w-1/2 flex justify-center items-center mx-auto;
+  }
+
+  #authForm label {
+    @apply text-lg font-extrabold bg-gradient-to-r from-teal-500  via-sky-400 to-cyan-700  text-transparent bg-clip-text;
+  }
+
+  #authForm .formContainer {
+    @apply w-3/4 py-2 px-2 flex flex-col justify-center items-center gap-5;
+  }
+
+  #authForm .formContent {
+    @apply flex flex-col gap-1 justify-center items-start;
+  }
+
+  #authForm div {
+    @apply w-full;
+  }
+
+  #authForm input {
+    @apply font-serif w-full outline outline-teal-200  shadow-inner shadow-cyan-600/50 text-black px-2 py-0.5;
+  }
+
+  #authForm .error {
+    @apply text-red-700 font-bold text-sm rounded-sm mt-1;
+  }
+
+  #authForm .formButton {
+    /* @apply text-sm font-bold bg-gradient-to-r from-teal-700  via-sky-700 to-cyan-700 px-3 py-1.5 rounded-sm shadow-md shadow-cyan-500 ; */
+    @apply py-1.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 shadow-md shadow-cyan-300;
+  }
+}

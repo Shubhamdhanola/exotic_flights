@@ -72,6 +72,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground m-0 p-0 bg-black text-white h-[100%] w-[100%] overflow-hidden;
+    @apply bg-background text-foreground m-0 p-0 bg-black text-white h-[100%] w-[100%] overflow-hidden ;
+  }
+  .textGradient{
+    @apply animate-pulse font-extrabold bg-gradient-to-r from-teal-500  via-sky-400 to-cyan-700 text-transparent bg-clip-text;
   }
 }

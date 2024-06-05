@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
 
-type ConnectionObject = {
-  isConnected?: number;
-};
+const connection = {};
 
-const connection: ConnectionObject = {};
-
-async function dbConnect(): Promise<void> {
+async function dbConnect(){
   if (connection.isConnected) {
     console.log("Already Connected To Database");
     return;

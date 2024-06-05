@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-import LogoutForm from "./logoutForm"
 
 const Navbar = () => {
 	return (
@@ -14,9 +13,8 @@ const Navbar = () => {
 				<Link href="/services"> Services</Link>
 			</div>
 			<div className="auth-links flex gap-3 items-center">
-				<Link href="/login" > Login</Link>
+				<Link href="/auth/sign-in" > Sign in</Link>
 				<Link href="/profile"> Profile</Link>
-				<LogoutForm />
 			</div>
 		</nav>
 	)
