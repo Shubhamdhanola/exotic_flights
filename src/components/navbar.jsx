@@ -13,8 +13,8 @@ const Navbar = () => {
 				<Link href="/services"> Services</Link>
 			</div>
 			<div className="auth-links flex gap-3 items-center">
-				<Link href="/auth/sign-in" > Sign in</Link>
-				<Link href="/profile"> Profile</Link>
+				<Link href="/auth/sign-in" > Signin</Link>
+				<Link href="/auth/sign-up"> Signup</Link>
 			</div>
 		</nav>
 	)
