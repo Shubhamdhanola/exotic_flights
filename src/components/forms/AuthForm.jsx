@@ -38,49 +38,49 @@ const AuthForm = ({ mode }) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} id="authForm">
-            <div class="formContainer">
+            <div className="formContainer">
                 {mode == "signUp" && (
                     <>
-                        <div class="formContent">
+                        <div className="formContent">
                             <label htmlFor="name">Your Name</label>
                             <div>
                                 <input id="name" type="text" {...register('name')} />
-                                {errors.name && <p class="error">*{errors.name.message}*</p>}
+                                {errors.name && <p className="error">*{errors.name.message}*</p>}
                             </div>
                         </div>
-                        <div class="formContent">
+                        <div className="formContent">
                             <label htmlFor="phonenumber">Phone Number</label>
                             <div>
                                 <input id="phonenumber" type="number" {...register('phonenumber')} />
-                                {errors.phonenumber && <p class="error">*{errors.phonenumber.message}*</p>}
+                                {errors.phonenumber && <p className="error">*{errors.phonenumber.message}*</p>}
                             </div>
                         </div>
                     </>
                 )}
-                <div class="formContent">
+                <div className="formContent">
                     <label htmlFor="email">Email Address</label>
                     <div>
                         <input id="email" type="email" {...register('email')} />
-                        {errors.email && <p class="error">*{errors.email.message}*</p>}
+                        {errors.email && <p className="error">*{errors.email.message}*</p>}
                     </div>
                 </div>
-                <div class="formContent">
+                <div className="formContent">
                     <label htmlFor="password">Password</label>
                     <div>
                         <input id="password" type="password" {...register('password')} />
-                        {errors.password && <p class="error">*{errors.password.message}*</p>}
+                        {errors.password && <p className="error">*{errors.password.message}*</p>}
                     </div>
                 </div>
                 {mode == "signUp" && (
-                    <div class="formContent">
+                    <div className="formContent">
                         <label htmlFor="confirmPassword">Confirm Password</label>
                         <div>
                             <input id="confirmPassword" type="password" {...register('confirmPassword')} />
-                            {errors.confirmPassword && <p class="error">*{errors.confirmPassword.message}*</p>}
+                            {errors.confirmPassword && <p className="error">*{errors.confirmPassword.message}*</p>}
                         </div>
                     </div>
                 )}
-                <button type="submit" class="formButton">{mode == "signUp" ? 'Sign Up' : 'Sign In'}</button>
+                <button type="submit" className="formButton">{mode == "signUp" ? 'Sign Up' : 'Sign In'}</button>
             </div>
         </form>
     );

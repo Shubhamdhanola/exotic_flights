@@ -24,7 +24,7 @@
   }
 
   #authForm input {
-    @apply font-serif w-full outline outline-teal-200  shadow-inner shadow-cyan-600/50 text-black px-2 py-0.5;
+    @apply w-full outline outline-teal-200  shadow-inner shadow-cyan-600/50 text-black px-2 py-0.5;
   }
 
   #authForm .error {
