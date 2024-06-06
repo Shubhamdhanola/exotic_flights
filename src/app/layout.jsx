@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar/Navbar";
 
 export const metadata = {
 	title: "Exotic Flights",
@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body>
-				<div className="container py-2 px-3">
+				<div className="root bgGradient">
 					<Navbar />
 					<div className="content">
 						{children}

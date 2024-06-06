@@ -1,13 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
+import "../navbar/style.css"
 
 const Navbar = () => {
 	return (
-		<nav className="flex justify-between items-center backdrop-blur-sm py-4 px-6">
+		<nav className="flex justify-between items-center backdrop-blur-sm py-4 px-6 gap-32">
 			<div className="logo">
-				<Image src="/images/logo.png" width={50} height={50} alt="company logo" />
+				<h2 className="gradientText">Exotic Fligts</h2>
 			</div>
-			<div className="links-container flex gap-5 items-center">
+			<div className="links-container flex flex-1 gap-5 items-center">
 				<Link href="/"> Home</Link>
 				<Link href="/aboutus"> About us</Link>
 				<Link href="/services"> Services</Link>
