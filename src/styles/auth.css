@@ -1,0 +1,27 @@
+.authContent {
+  position: relative;
+  z-index: 10;
+}
+
+.authContent::before,
+.authContent::after {
+  content: "";
+  position: absolute;
+  opacity: 0.4;
+  height: 100px;
+  width: 100px;
+  z-index: -1;
+}
+
+.authContent::before {
+  background: #03a9f4;
+  top: -40px;
+  left: -45px;
+}
+
+.authContent::after {
+  background: #0c1556;
+  bottom: -40px;
+  right: -45px;
+}
+

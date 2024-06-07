@@ -10,9 +10,12 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body>
-				<div className="root bgGradient">
+				<div className="main">
+					<div className="gradient" />
+				</div>
+				<div className="root">
 					<Navbar />
-					<div className="content">
+					<div className="w-10/12 flex justify-center items-center">
 						{children}
 					</div>
 				</div>

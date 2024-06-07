@@ -2,26 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-nav{
-  position: relative;
-}
-
-nav::before {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  z-index: -1;
-  background: radial-gradient(circle at 4% 25%, rgba(8, 21, 37, 0.385) 0%, rgb(0, 23, 62) 100%);
-  filter: blur(10px); 
-}
-
-nav .gradientText {
-  background: radial-gradient(
-    circle at 4% 25%,
-    rgba(3, 169, 244, 1) 0%,
-    rgb(23, 31, 107) 100%
-  );
-  color: transparent;
-  background-clip: text;
-  font-weight: bold;
-}

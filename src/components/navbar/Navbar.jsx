@@ -1,23 +1,25 @@
-import Image from "next/image"
+"use client"
 import Link from "next/link"
 import "../navbar/style.css"
+import { slideAnimation, headTextAnimation, headContentAnimation, headContainerAnimation } from "../../helpers/motion"
+import { motion } from "framer-motion"
 
 const Navbar = () => {
 	return (
-		<nav className="flex justify-between items-center backdrop-blur-sm py-4 px-6 gap-32 max-md:gap-10 max-sm:gap-0 max-sm:">
+		<motion.nav className="flex justify-between items-center backdrop-blur-sm w-3/4 gap-10 max-sm:w-auto" {...slideAnimation('right')}>
 			<div className="logo">
-				<h2 className="gradientText lg:text-2xl sm:text-2sm">Exotic Fligts</h2>
+				<h2 className="gradientText shadow-lg py-2.5 px-5 font-bold rounded-full ">Exotic Fligts</h2>
 			</div>
 			<div className="links-container flex flex-1 gap-5 items-center">
-				<Link href="/"> Home</Link>
-				<Link href="/aboutus"> About us</Link>
-				<Link href="/services"> Services</Link>
+				<Link href="/" className="url_input"> Home</Link>
+				<Link href="/pages/aboutus" className="url_input"> About us</Link>
+				<Link href="/pages/services" className="url_input"> Services</Link>
 			</div>
 			<div className="auth-links flex gap-3 items-center">
-				<Link href="/auth/sign-in" > Signin</Link>
-				<Link href="/auth/sign-up"> Signup</Link>
+				<Link href="/auth/sign-in" className="black_btn" > Signin</Link>
+				<Link href="/auth/sign-up" className="black_btn"> Signup</Link>
 			</div>
-		</nav>
+		</motion.nav>
 	)
 }
 

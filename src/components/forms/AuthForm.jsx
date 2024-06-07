@@ -80,7 +80,7 @@ const AuthForm = ({ mode }) => {
                         </div>
                     </div>
                 )}
-                <button type="submit" className="formButton">{mode == "signUp" ? 'Sign Up' : 'Sign In'}</button>
+                <button type="submit" className="submit_btn">{mode == "signUp" ? 'Sign Up' : 'Sign In'}</button>
             </div>
         </form>
     );
