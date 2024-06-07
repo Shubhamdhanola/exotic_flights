@@ -31,7 +31,7 @@
 
 @layer base {
   * {
-    @apply scroll-smooth p-0 m-0;
+    @apply scroll-smooth p-0 m-0 select-none;
   }
 
   html {
