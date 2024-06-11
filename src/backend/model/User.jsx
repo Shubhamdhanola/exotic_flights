@@ -17,6 +17,8 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'Password is required']
     },
+    forgotPasswordToken: String,
+    forgotPasswordTokenExpiry: Date,
     verifyCode: {
         type: String,
         required: [true, "Code is required"]
@@ -24,7 +26,7 @@ const UserSchema = new Schema({
     verifyCodeExpiry: {
         type: Date,
     },
-    verified: {
+    isVerified: {
         type: Boolean,
         default: false
     }
