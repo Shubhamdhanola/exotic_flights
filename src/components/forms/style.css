@@ -8,7 +8,7 @@
   }
 
   #authForm label {
-    @apply text-lg text-gray-600 ;
+    @apply text-sm text-gray-600 lg:text-lg md:text-lg;
   }
 
   #authForm .formContainer {
