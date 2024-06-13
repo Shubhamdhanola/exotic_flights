@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const userRouter = require('./routes/users-routes')
 const bodyParser = require('body-parser')
@@ -25,9 +26,9 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An Unkown Error Occurred!'})
 })
 
-mongoose.connect(``)
+mongoose.connect(process.env.MONGODB_URL)
 .then(()=>{
-    console.log("Connecte to DB!")
+    console.log("Connected to DB!")
     app.listen(8080);
 })
 .catch(err => console.log(err))
