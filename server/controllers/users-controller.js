@@ -8,18 +8,20 @@ const jwt = require('jsonwebtoken')
 const salt = bcrypt.genSaltSync(10);
 
 const signup = async (req, res, next) => {
-    let { email, password, name } = req.body;
+    let { email, password, name, phone } = req.body;
 
     const data = {
         email: email,
         password: password,
-        name: name
+        name: name,
+        phone: phone,
     }
 
     const rules = {
         email: 'required|email',
         password: 'required|min:1',
-        name: 'required|min:3'
+        name: 'required|min:3',
+        phone: 'required|min:10|max:14',
     }
 
     const validation = new Validator(data, rules)
@@ -37,15 +39,16 @@ const signup = async (req, res, next) => {
             user = new User({
                 name: name,
                 email: email,
-                password: bcrypt.hashSync(password, salt)
+                password: bcrypt.hashSync(password, salt),
+                phone:phone
             });
             user = await user.save()
+            res.cookie("userDetails",user);
         } else {
             const error = new HttpError('User Already Exits!', 400)
             return next(error)
         }
     } catch (err) {
-        console.log(err)
         const error = new HttpError("Unable to signup user", 400)
         return next(error)
     }
@@ -84,9 +87,9 @@ const login = async (req, res, next) => {
         }
         if(bcrypt.compareSync(password, user.password)){
             user.token = jwt.sign({ userId: user.id, email: user.email }, "secret", { expiresIn: '1h' });
-    
+            
             await user.save()
-
+            res.cookie("userDetails",user);
             res.status(200)
             res.json({ user: user.toObject({ getters: true }) })
         } else {
@@ -95,7 +98,6 @@ const login = async (req, res, next) => {
         }
 
     } catch (err) {
-        console.log(err)
         const error = new HttpError("Unable to login user", 400)
         return next(error)
     }

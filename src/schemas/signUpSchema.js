@@ -3,7 +3,7 @@ import { z } from "zod";
 export const signUpSchema = z
   .object({
     name: z.string().min(1, "Please enter your name"),
-    phonenumber: z
+    phone: z
       .string()
       .min(10, "Phone number must be of 10 digits")
       .max(14, "Phone number can't be more than 14 digits"),
