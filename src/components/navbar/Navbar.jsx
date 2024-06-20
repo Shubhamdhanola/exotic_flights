@@ -3,16 +3,43 @@ import Link from "next/link"
 import "./style.css"
 import { slideAnimation } from "../../helpers/motion"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
+import { getCookie, deleteCookie } from 'cookies-next';
+import axios from 'axios';
 
 const Navbar = () => {
+	// Fetching the user's cookie
 	const [mobileView, setMobileView] = useState(false);
+	const [user, setUser] = useState(()=>{
+		return getCookie('user') ? true : false;
+	});
+	console.log(user);
+	useEffect(() => {
+		const hasUser = getCookie('user');
+		if (hasUser) {
+			setUser(true);
+		}
+	}, []);
 
 	function handleDropdown(e) {
 		e.preventDefault();
-		let checkClass = e.target.className;
-		checkClass == 'open' ? setMobileView(true) : setMobileView(false);
+		setMobileView((prev) => !prev);
+	};
+	
+	// Handling logout 
+	const handleLogout = async (e) => {
+		e.preventDefault();
+		try {
+			const res = await axios.get('http://localhost:8080/api/users/logout');
+			if (res.status === 200) {
+				deleteCookie('user');
+				setUser(false);
+				console.log('Logged out successfully');
+			}
+		} catch (err) {
+			console.error('Logout error:', err);
+		}
 	};
 
 	return (
@@ -29,10 +56,16 @@ const Navbar = () => {
 						<Link href="/pages/services" className="url_input"> Services</Link>
 					</div>
 
-					<div className="flex gap-3 items-center max-sm:hidden">
-						<Link href="/auth/sign-in" className="black_btn" > Signin</Link>
-						<Link href="/auth/sign-up" className="black_btn"> Signup</Link>
-					</div>
+					{user ?
+						<div className="flex gap-3 items-center max-sm:hidden">
+							<button className="black_btn" onClick={handleLogout}> Logout</button>
+						</div>
+						:
+						<div className="flex gap-3 items-center max-sm:hidden">
+							<Link href="/auth/sign-in" className="black_btn" > Signin</Link>
+							<Link href="/auth/sign-up" className="black_btn"> Signup</Link>
+						</div>
+					}
 
 					<div className="lg:hidden md:hidden">
 						<Image src="/icons/hamburger-menu.svg" height="30" width="30" alt="" className="open" onClick={handleDropdown}></Image>

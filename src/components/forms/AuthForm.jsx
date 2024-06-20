@@ -6,14 +6,15 @@ import { signInSchema, signUpSchema } from '../../schemas';
 import "../forms/style.css";
 import axios from 'axios';
 import { toast, Toaster } from 'react-hot-toast';
+import { setCookie } from 'cookies-next';
 
 const AuthForm = ({ mode }) => {
     const schema = mode === 'signUp' ? signUpSchema : signInSchema;
+    
     // Initialize useForm hook
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(schema),
     });
-
 
     const onSubmit = (data) => {
         if (mode == 'signUp') {
@@ -25,6 +26,7 @@ const AuthForm = ({ mode }) => {
                 .then((res) => {
                     if (res.status == 200) {
                         toast.success('Your account has been successfully created');
+                        
                     } else {
                         toast.error("Failed to signup");
                     }
@@ -40,8 +42,8 @@ const AuthForm = ({ mode }) => {
                 data: data,
             })
                 .then((res) => {
-                    console.log(res);
                     if (res.status == 200) {
+                        setCookie('user', res.data.user.token, {path:'/'});
                         toast.success('Login Successful!');
                     } else {
                         toast.error("Login Failed!");

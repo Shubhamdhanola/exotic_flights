@@ -43,7 +43,6 @@ const signup = async (req, res, next) => {
                 phone:phone
             });
             user = await user.save()
-            res.cookie("userDetails",user);
         } else {
             const error = new HttpError('User Already Exits!', 400)
             return next(error)
@@ -89,7 +88,6 @@ const login = async (req, res, next) => {
             user.token = jwt.sign({ userId: user.id, email: user.email }, "secret", { expiresIn: '1h' });
             
             await user.save()
-            res.cookie("userDetails",user);
             res.status(200)
             res.json({ user: user.toObject({ getters: true }) })
         } else {

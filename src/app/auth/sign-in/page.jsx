@@ -6,6 +6,7 @@ import '../../../styles/auth.css';
 import { slideAnimation, headContainerAnimation } from "../../../helpers/motion"
 
 const Page = () => {
+
   return (
     <AnimatePresence>
       <motion.div className='authContent flex justify-evenly items-center mt-20 shadow-xl w-full bg-white/30 backdrop-blur-sm px-2 lg:px-10 md:px-10 py-5' {...headContainerAnimation}>
