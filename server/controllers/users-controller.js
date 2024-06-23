@@ -85,7 +85,7 @@ const login = async (req, res, next) => {
             return next(error)
         }
         if(bcrypt.compareSync(password, user.password)){
-            user.token = jwt.sign({ userId: user.id, email: user.email }, "secret", { expiresIn: '1h' });
+            user.token = jwt.sign({ userId: user.id, email: user.email }, "secret");
             
             await user.save()
             res.status(200)

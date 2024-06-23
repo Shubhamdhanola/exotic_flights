@@ -8,8 +8,10 @@ import axios from 'axios';
 import { toast, Toaster } from 'react-hot-toast';
 import { setCookie } from 'cookies-next';
 import { AuthContext } from './../../contexts/auth-context'
+import { useRouter } from 'next/navigation';
 
 const AuthForm = ({ mode }) => {
+    const router = useRouter()
     const schema = mode === 'signUp' ? signUpSchema : signInSchema;
     const auth = useContext(AuthContext)
     
@@ -28,7 +30,6 @@ const AuthForm = ({ mode }) => {
                 .then((res) => {
                     if (res.status == 200) {
                         toast.success('Your account has been successfully created');
-                        
                     } else {
                         toast.error("Failed to signup");
                     }
@@ -37,18 +38,19 @@ const AuthForm = ({ mode }) => {
                     let error = err.response != undefined ? err.response.data.message : "Something went wrong";
                     toast.error(error);
                 });
-        } else {
-            axios({
-                url: "http://localhost:8080/api/users/login",
-                method: "POST",
-                data: data,
-            })
+            } else {
+                axios({
+                    url: "http://localhost:8080/api/users/login",
+                    method: "POST",
+                    data: data,
+                })
                 .then((res) => {
                     if (res.status == 200) {
                         setCookie('user', res.data.user.token, {path:'/'});
                         auth.login()
                         
                         toast.success('Login Successful!');
+                        router.push("/")
                     } else {
                         toast.error("Login Failed!");
                     }

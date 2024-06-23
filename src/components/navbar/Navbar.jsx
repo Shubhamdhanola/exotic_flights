@@ -16,7 +16,7 @@ const Navbar = () => {
 	const [user, setUser] = useState(()=>{
 		return getCookie('user') ? true : false;
 	});
-	console.log(user);
+
 	useEffect(() => {
 		const hasUser = getCookie('user');
 		if (hasUser) {
@@ -31,21 +31,22 @@ const Navbar = () => {
 	
 	// Handling logout 
 	const handleLogout = async (e) => {
+		const cookie = getCookies('user')
 		e.preventDefault();
-		try {
-			const res = await axios.get('http://localhost:8080/api/users/logout', {
-				headers: {
-					Authorization: getCookies('user')
-				}
-			});
+		axios.get('http://localhost:8080/api/users/logout', {
+			headers: {
+				Authorization: 'Bearer ' + cookie.user
+			}
+		}).then(res => {
 			if (res.status === 200) {
 				deleteCookie('user');
 				setUser(false);
+				auth.logout()
 				console.log('Logged out successfully');
 			}
-		} catch (err) {
+		}).catch( (err) =>  {
 			console.error('Logout error:', err);
-		}
+		})
 	};
 
 	return (

@@ -17,6 +17,10 @@ export default function RootLayout({ children }) {
 		setIsLoggedIn(true)
 	}
 
+	const logout = () => {
+		setIsLoggedIn(false)
+	}
+
 	useEffect(()=>{
 		if(getCookie('user'))
 		{
@@ -31,7 +35,7 @@ export default function RootLayout({ children }) {
 					<div className="gradient" />
 				</div>
 				<AuthContext.Provider
-					value={{ isLoggedIn, login }}
+					value={{ isLoggedIn, login, logout }}
 				>
 					<div className="root">
 						<Navbar />
