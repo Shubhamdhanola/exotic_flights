@@ -25,7 +25,7 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An Unkown Error Occurred!'})
 })
 
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(`mongodb+srv://ak669212:sxmTtF79qEjUOF2l@cluster0.lqsee3s.mongodb.net/project1?retryWrites=true&w=majority&appName=Cluster0`)
 .then(()=>{
     console.log("Connected to DB!")
     app.listen(8080);

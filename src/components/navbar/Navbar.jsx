@@ -3,13 +3,15 @@ import Link from "next/link"
 import "./style.css"
 import { slideAnimation } from "../../helpers/motion"
 import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import Image from "next/image"
-import { getCookie, deleteCookie } from 'cookies-next';
+import { getCookie, deleteCookie, getCookies } from 'cookies-next';
 import axios from 'axios';
+import { AuthContext } from "../../contexts/auth-context"
 
 const Navbar = () => {
 	// Fetching the user's cookie
+	const auth = useContext(AuthContext)
 	const [mobileView, setMobileView] = useState(false);
 	const [user, setUser] = useState(()=>{
 		return getCookie('user') ? true : false;
@@ -31,7 +33,11 @@ const Navbar = () => {
 	const handleLogout = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.get('http://localhost:8080/api/users/logout');
+			const res = await axios.get('http://localhost:8080/api/users/logout', {
+				headers: {
+					Authorization: getCookies('user')
+				}
+			});
 			if (res.status === 200) {
 				deleteCookie('user');
 				setUser(false);
@@ -56,7 +62,7 @@ const Navbar = () => {
 						<Link href="/pages/services" className="url_input"> Services</Link>
 					</div>
 
-					{user ?
+					{auth && auth.isLoggedIn ?
 						<div className="flex gap-3 items-center max-sm:hidden">
 							<button className="black_btn" onClick={handleLogout}> Logout</button>
 						</div>

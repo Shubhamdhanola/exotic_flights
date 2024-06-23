@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signInSchema, signUpSchema } from '../../schemas';
@@ -7,9 +7,11 @@ import "../forms/style.css";
 import axios from 'axios';
 import { toast, Toaster } from 'react-hot-toast';
 import { setCookie } from 'cookies-next';
+import { AuthContext } from './../../contexts/auth-context'
 
 const AuthForm = ({ mode }) => {
     const schema = mode === 'signUp' ? signUpSchema : signInSchema;
+    const auth = useContext(AuthContext)
     
     // Initialize useForm hook
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -44,6 +46,8 @@ const AuthForm = ({ mode }) => {
                 .then((res) => {
                     if (res.status == 200) {
                         setCookie('user', res.data.user.token, {path:'/'});
+                        auth.login()
+                        
                         toast.success('Login Successful!');
                     } else {
                         toast.error("Login Failed!");
