@@ -7,9 +7,11 @@ import { useState, useEffect, useContext } from "react"
 import Image from "next/image"
 import { getCookie, deleteCookie, getCookies } from 'cookies-next';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { AuthContext } from "../../contexts/auth-context"
 
 const Navbar = () => {
+	const router = useRouter()
 	// Fetching the user's cookie
 	const auth = useContext(AuthContext)
 	const [mobileView, setMobileView] = useState(false);
@@ -42,7 +44,7 @@ const Navbar = () => {
 				deleteCookie('user');
 				setUser(false);
 				auth.logout()
-				console.log('Logged out successfully');
+				router.push("/")
 			}
 		}).catch( (err) =>  {
 			console.error('Logout error:', err);

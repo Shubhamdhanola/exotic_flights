@@ -1,4 +1,5 @@
 import { signInSchema } from "./signInSchema";
 import { signUpSchema } from "./signUpSchema";
+import { chatbotSchema } from "./chatbotSchema";
 
-export { signUpSchema, signInSchema };
+export { signUpSchema, signInSchema,chatbotSchema };

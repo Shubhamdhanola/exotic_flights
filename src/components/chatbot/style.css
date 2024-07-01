@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  #chatbotForm label {
+    @apply text-sm text-gray-600 lg:text-lg md:text-lg;
+  }
+
+  #chatbotForm textarea {
+    @apply w-10/12  outline outline-gray-100 shadow-md shadow-gray-400 text-black px-2 py-0.5 h-10;
+  }
+
+  #chatbotForm .error {
+    @apply text-red-700 font-bold text-xs rounded-sm mt-1;
+  }
+
+}

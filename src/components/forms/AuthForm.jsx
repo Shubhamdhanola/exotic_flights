@@ -3,18 +3,18 @@ import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signInSchema, signUpSchema } from '../../schemas';
-import "../forms/style.css";
-import axios from 'axios';
 import { toast, Toaster } from 'react-hot-toast';
 import { setCookie } from 'cookies-next';
 import { AuthContext } from './../../contexts/auth-context'
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import "../forms/style.css";
 
 const AuthForm = ({ mode }) => {
     const router = useRouter()
     const schema = mode === 'signUp' ? signUpSchema : signInSchema;
     const auth = useContext(AuthContext)
-    
+
     // Initialize useForm hook
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(schema),
@@ -29,7 +29,7 @@ const AuthForm = ({ mode }) => {
             })
                 .then((res) => {
                     if (res.status == 200) {
-                        toast.success('Your account has been successfully created');
+                        toast.success('Your account has been created successfully');
                     } else {
                         toast.error("Failed to signup");
                     }
@@ -38,19 +38,17 @@ const AuthForm = ({ mode }) => {
                     let error = err.response != undefined ? err.response.data.message : "Something went wrong";
                     toast.error(error);
                 });
-            } else {
-                axios({
-                    url: "http://localhost:8080/api/users/login",
-                    method: "POST",
-                    data: data,
-                })
+        } else {
+            axios({
+                url: "http://localhost:8080/api/users/login",
+                method: "POST",
+                data: data,
+            })
                 .then((res) => {
                     if (res.status == 200) {
-                        setCookie('user', res.data.user.token, {path:'/'});
-                        auth.login()
-                        
-                        toast.success('Login Successful!');
+                        setCookie('user', res.data.user.token, { path: '/' });
                         router.push("/")
+                        auth.login()
                     } else {
                         toast.error("Login Failed!");
                     }

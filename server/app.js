@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express')
 const userRouter = require('./routes/users-routes')
+const chatbotRouter = require('./routes/chatbot-routes')
 const bodyParser = require('body-parser')
 const HttpError = require('./models/http-error')
 const mongoose = require("mongoose")
@@ -12,6 +13,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.use("/api/users", userRouter)
+app.use("/api/chatbot", chatbotRouter)
 
 app.use((req, res, next) => {
     throw new HttpError("Could not find this route", 404)
