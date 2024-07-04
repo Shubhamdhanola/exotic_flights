@@ -83,6 +83,163 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Chatbot",
+			"item": [
+				{
+					"name": "Add Chat (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"question\",\n    \"level\": 2,\n    \"text\": \"question3\",\n    \"answerText\": \"if any\",\n    \"nextChats\": null,\n    \"parentChat\": \"6685625b04df3890103ac33b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/chat/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"chat",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"question\",\n    \"level\": 2,\n    \"text\": \"question3\",\n    \"answerText\": \"if any\",\n    \"nextChats\": null,\n    \"parentChat\": \"6685625b04df3890103ac33b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/chat/update/6685624e04df3890103ac339",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"chat",
+								"update",
+								"6685624e04df3890103ac339"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Listing (Admin Dropdown)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/chat/listing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"chat",
+								"listing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Listing (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/chats/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"chats",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Listing First Chats (Frontend)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/chat/listing/first",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"chat",
+								"listing",
+								"first"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat (Frontend)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/chat/6685624e04df3890103ac339",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"chat",
+								"6685624e04df3890103ac339"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {

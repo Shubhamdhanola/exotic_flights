@@ -11,7 +11,7 @@ const chat = async (req, res) => {
   }
 };
 
-const addQuestion = async (req, res) => {
+const addChat = async (req, res) => {
   const { text, level, answerText, nextChats, parentChat } = req.body
 
   try {
@@ -52,7 +52,7 @@ const addQuestion = async (req, res) => {
   }
 }
 
-const updateQuestion = async (req, res) => {
+const updateChat = async (req, res) => {
   const chatId = req.params.id
   const { text, level, answerText, nextChats, type, parentChat } = req.body
 
@@ -131,6 +131,92 @@ const updateQuestion = async (req, res) => {
   }
 }
 
+const getAllChats = async (req, res) => {
+  let chats;
+
+  try {
+    chats = await Chat.aggregate([
+      {
+        $project: {
+          id: 1,
+          text: 1
+        }
+      },
+      {
+        $sort: {
+            date : -1
+        }
+      }
+    ])
+    res.status(200).json(chats)
+  } catch (err) {
+    res.status(400).json({ error: "Failed to find chats" });
+  }
+}
+
+const getAllListing = async (req, res) => {
+  let chats;
+
+  try {
+    chats = await Chat.aggregate([
+      {
+        $sort: {
+            date : -1
+        }
+      }
+    ])
+    res.status(200).json(chats)
+  } catch (err) {
+    res.status(400).json({ error: "Failed to find chats" });
+  }
+}
+
+const getFirstAllChats = async (req, res) => {
+  let chats;
+
+  try {
+    chats = await Chat.aggregate([
+      {
+        $project: {
+          id: 1,
+          text: 1,
+          nextChats: 1,
+          parentChat: 1
+        }
+      },
+      {
+        $sort: {
+            date : -1
+        }
+      },
+      {
+        $match: {
+          parentChat: null
+        }
+      }
+    ])
+    res.status(200).json(chats)
+  } catch (err) {
+    res.status(400).json({ error: "Failed to find chats" });
+  }
+}
+
+const getSingleChat = async (req, res) => {
+  const chatId = req.params.id
+  let chat;
+
+  try {
+    chat = await Chat.findById(chatId)
+    res.status(200).json(chat)
+  } catch (err) {
+    res.status(400).json({ error: "Failed to find chats" });
+  }
+}
+
 exports.chat = chat
-exports.addQuestion = addQuestion
-exports.updateQuestion = updateQuestion
+exports.addChat = addChat
+exports.updateChat = updateChat
+exports.getAllChats = getAllChats
+exports.getFirstAllChats = getFirstAllChats
+exports.getSingleChat = getSingleChat
+exports.getAllListing = getAllListing
