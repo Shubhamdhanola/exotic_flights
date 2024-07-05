@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"aman70482\",\n    \"name\": \"aman\"\n}",
+							"raw": "{\n    \"email\": \"admi1@gmail.com\",\n    \"password\": \"aman70482\",\n    \"name\": \"aman\",\n    \"phone\": 1229292992\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -69,14 +69,44 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/api/users/logout",
+							"raw": "{{API_URL}}api/users/logout",
 							"host": [
-								"{{API_URL}}"
+								"{{API_URL}}api"
 							],
 							"path": [
-								"api",
 								"users",
 								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}api/users?limit=10&page=1&search=admin",
+							"host": [
+								"{{API_URL}}api"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "admin"
+								}
 							]
 						}
 					},

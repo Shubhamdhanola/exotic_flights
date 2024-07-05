@@ -21,7 +21,7 @@ const signup = async (req, res, next) => {
         email: 'required|email',
         password: 'required|min:1',
         name: 'required|min:3',
-        phone: 'required|min:10|max:14',
+        // phone: 'integer|required|size:10',
     }
 
     const validation = new Validator(data, rules)
