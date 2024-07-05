@@ -60,9 +60,9 @@ const Navbar = () => {
 					</motion.div>
 
 					<div className="flex flex-1 gap-5 items-center max-sm:hidden">
-						<Link href="/" className="url_input"> Home</Link>
-						<Link href="/pages/aboutus" className="url_input"> About us</Link>
-						<Link href="/pages/services" className="url_input"> Services</Link>
+						<Link href="/frontend" className="url_input"> Home</Link>
+						<Link href="/frontend/pages/aboutus" className="url_input"> About us</Link>
+						<Link href="/frontend/pages/services" className="url_input"> Services</Link>
 					</div>
 
 					{auth && auth.isLoggedIn ?
@@ -71,8 +71,8 @@ const Navbar = () => {
 						</div>
 						:
 						<div className="flex gap-3 items-center max-sm:hidden">
-							<Link href="/auth/sign-in" className="black_btn" > Signin</Link>
-							<Link href="/auth/sign-up" className="black_btn"> Signup</Link>
+							<Link href="/frontend/auth/sign-in" className="black_btn" > Signin</Link>
+							<Link href="/frontend/auth/sign-up" className="black_btn"> Signup</Link>
 						</div>
 					}
 
@@ -90,11 +90,11 @@ const Navbar = () => {
 							<h2 className="gradientText shadow-lg py-2.5 px-5 font-bold rounded-full ">Exotic Fligts</h2>
 							<Image src="/icons/x-letter.svg" height="30" width="30" alt="" className="close" onClick={handleDropdown}></Image>
 						</div>
-						<Link href="/" className="black_btn"> Home</Link>
-						<Link href="/pages/aboutus" className="black_btn"> About us</Link>
-						<Link href="/pages/services" className="black_btn"> Services</Link>
-						<Link href="/auth/sign-in" className="black_btn" > Signin</Link>
-						<Link href="/auth/sign-up" className="black_btn"> Signup</Link>
+						<Link href="/frontend" className="black_btn"> Home</Link>
+						<Link href="/frontend/pages/aboutus" className="black_btn"> About us</Link>
+						<Link href="/frontend/pages/services" className="black_btn"> Services</Link>
+						<Link href="/frontend/auth/sign-in" className="black_btn" > Signin</Link>
+						<Link href="/frontend/auth/sign-up" className="black_btn"> Signup</Link>
 					</div>
 				</motion.div> : ""}
 		</>

@@ -1,7 +1,7 @@
 "use client"
 import { motion, AnimatePresence } from "framer-motion";
 import Typewriter from 'typewriter-effect';
-import { slideAnimation, headContainerAnimation } from "../../src/helpers/motion"
+import {headContainerAnimation } from "../../helpers/motion"
 
 export default function Home() {
 

@@ -2,8 +2,8 @@
 import AuthForm from "/src/components/forms/AuthForm"
 import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
-import '../../../styles/auth.css';
-import { slideAnimation, headContainerAnimation } from "../../../helpers/motion"
+import '../styles/auth.css';
+import { slideAnimation, headContainerAnimation } from "../../../../helpers/motion"
 
 const Page = () => {
 
