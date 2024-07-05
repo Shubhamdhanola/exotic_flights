@@ -1,38 +1,57 @@
 'use client'
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const Page = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios({
+      url: "http://localhost:8080/api/users",
+      method: "GET",
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setUsers(res.data.users);
+        } else {
+          console.log("No users found");
+        }
+      })
+      .catch((err) => {
+        let error = err.response ? err.response.data.message : "Something went wrong";
+        console.log(error);
+      });
+  }, []);
+
   return (
-    <>
-      <div className='h-[100vh] w-10/12 mt-10 shadow-xl overflow-hidden flex flex-col bg-gray-900 bg-opacity-80'>
-        <div className='flex flex-col justify-center items-center'>
-          <h1 className='text-3xl font-bold text-white'>Dashboard</h1>
-        </div>
-        <div className='flex flex-col justify-center items-center'>
-          <table className='table-auto border-collapse w-full mt-5'>
-            <tr className='border-b-2 border-gray-800'>
-              <th>Username</th>
+    <div className='dashboard-container'>
+      <div className='dashboard-header'>
+        <h1>All User's Listing</h1>
+      </div>
+      <div className='dashboard-content'>
+        <table className='dashboard-table'>
+          <thead>
+            <tr>
+              <th>Sr.no</th>
+              <th>Name</th>
               <th>Email</th>
-              <th>Role</th>
               <th>Action</th>
             </tr>
-            <tr className='border-b-2 border-gray-800'>
-              <td>John Doe</td>
-              <td>john@example.com</td>
-              <td>Admin</td>
-              <td>Edit</td>
-            </tr>
-            <tr className='border-b-2 border-gray-800'>
-              <td>Jane Doe</td>
-              <td>jane@example.com</td>
-              <td>User</td>
-              <td>Edit</td>
-            </tr>
-          </table>
-        </div>
-
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user.id}>
+                <td>{index + 1}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>Delete</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default Page
+export default Page;
