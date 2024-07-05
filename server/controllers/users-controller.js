@@ -43,6 +43,8 @@ const signup = async (req, res, next) => {
                 phone:phone
             });
             user = await user.save()
+            res.status(200)
+            res.json({ user: user.toObject({ getters: true }) })
         } else {
             const error = new HttpError('User Already Exits!', 400)
             return next(error)
@@ -52,8 +54,6 @@ const signup = async (req, res, next) => {
         return next(error)
     }
 
-    res.status(200)
-    res.json({ user: user.toObject({ getters: true }) })
 }
 
 const login = async (req, res, next) => {
@@ -127,53 +127,50 @@ const getUsers = async (req, res, next) => {
     page = parseInt(page)
     limit = parseInt(limit)
 
+    let matchCondition = {}
+    if(search) {
+        matchCondition.$or = [
+            {name: { $regex: ".*" + search + ".*", $options: 'i' }},
+            {email: { $regex: ".*" + search + ".*", $options: 'i' }}
+        ]
+    }
+
     let users = [];
     try {
-        // users = await User.find({ 
-        //     $or: [
-        //         {name: { $regex: ".*" + search + ".*", $options: 'i' }},
-        //         {email: { $regex: ".*" + search + ".*", $options: 'i' }}
-        //     ]
-        // })
-        // .limit(typeof limit != undefined ? limit : null)
-        // .skip(typeof page != undefined ? (page-1)*limit : null)
+        users = await User.find(matchCondition)
+        .limit(typeof limit != undefined ? limit : null)
+        .skip(typeof page != undefined ? (page-1)*limit : null)
 
-        users = await User.aggregate([
-            {
-                $lookup: {
-                    from: 'places',
-                    localField: '_id',
-                    foreignField: 'createdBy'
-                }
-            },
-            {
-                $project: {
-                    name: 1,
-                    email: 1,
-                    id: 1
-                }
-            },
-            {
-                $match: {
-                    $or: [
-                        {name: { $regex: ".*" + search + ".*", $options: 'i' }},
-                        {email: { $regex: ".*" + search + ".*", $options: 'i' }}
-                    ]
-                }
-            },
-            {
-                $addFields: {
-                    id: "$_id"
-                }
-            },
-            {
-                $skip: (page-1)*limit
-            },
-            {
-                $limit: limit
-            }
-        ])
-        // res.json({users})
+        // users = await User.aggregate([
+        //     {
+        //         $project: {
+        //             name: 1,
+        //             email: 1,
+        //             id: 1
+        //         }
+        //     },
+        //     {
+        //         $match: {
+        //             $or: [
+        //                 {name: { $regex: ".*" + search + ".*", $options: 'i' }},
+        //                 {email: { $regex: ".*" + search + ".*", $options: 'i' }}
+        //             ]
+        //         }
+        //     },
+        //     {
+        //         $addFields: {
+        //             id: "$_id"
+        //         }
+        //     },
+        //     {
+        //         $skip: (page-1)*limit
+        //     },
+        //     {
+        //         $limit: limit
+        //     }
+        // ])
+
+        res.status(200).json({users})
         // return next()
 
     } catch(err) {
@@ -181,10 +178,6 @@ const getUsers = async (req, res, next) => {
         const error = new HttpError('Unable to fetch Users', 400)
         return next(error)
     }
-
-    res.status(200)
-    // res.json({ users: users.map( item => item.toObject({ getters: true }) ) })
-    res.json({ users })
 }
 
 
