@@ -17,33 +17,31 @@
     }
   }
 
+  /* Comman Text and Background colors */
+@layer base {
+    .gradientText {
+      @apply font-extrabold bg-gradient-to-r from-[#03A9F4] to-[#0c1556] text-transparent bg-clip-text;
+    }
+  
+    .black_btn {
+      @apply rounded-full border border-black bg-black py-1.5 px-5 text-sm text-white transition-all hover:bg-white hover:text-black shadow-lg shadow-gray-500;
+    }
+  
+    .url_input {
+      @apply rounded-full bg-white py-2.5 px-5 text-sm shadow-lg font-medium;
+    }
+  
+    .head_text {
+      @apply mt-5 text-sm font-bold leading-[1.15] text-gray-500 text-center;
+    }
+  
+    .submit_btn {
+      @apply rounded-xl border py-1.5 text-sm bg-white text-black font-medium transition-all hover:bg-black hover:text-white hover:border-black shadow-lg shadow-gray-700 px-2 lg:px-6 md:px-6;
+    }
+  
+  }
 
-.dashboard-container {
-    height: 100vh;
-    width: 80%;
-    margin-top: 2.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    overflow: hidden;
-    flex-direction: column;
-    background: rgba(31, 41, 55, 0.8); /* Tailwind's bg-gray-900 with opacity-80 */
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-  }
-  
-  .dashboard-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.25rem;
-  }
-  
-  .dashboard-header h1 {
-    font-size: 1.875rem; /* Tailwind's text-3xl */
-    font-weight: 700; /* Tailwind's font-bold */
-    color: #ffffff; /* Tailwind's text-white */
-  }
-  
+
   .dashboard-content {
     display: flex;
     flex-direction: column;
@@ -61,27 +59,27 @@
   .dashboard-table td {
     padding: 0.75rem;
     text-align: left;
-    color: #ffffff; /* Tailwind's text-white */
   }
-  
+
   .dashboard-table thead tr {
-    border-bottom: 2px solid #1f2937; /* Tailwind's border-gray-800 */
+    border-bottom: 2px solid #1f2937; 
   }
   
   .dashboard-table tbody tr:nth-child(even) {
-    background: rgba(31, 41, 55, 0.6); /* Lighter gray for alternating rows */
+    background: rgba(157, 157, 157, 0.6); 
   }
   
   .dashboard-table tbody tr:hover {
-    background: rgba(31, 41, 55, 0.9); /* Darker gray on hover */
+    background: rgba(31, 41, 55, 0.9);
+    color:#ffffff
   }
   
   .dashboard-table th {
-    font-weight: 700; /* Tailwind's font-bold */
+    font-weight: 700;
   }
   
   .dashboard-table td {
-    border-bottom: 1px solid #1f2937; /* Tailwind's border-gray-800 */
+    border-bottom: 1px solid #1f2937;
   }
   
   .dashboard-table tbody tr:last-child td {
