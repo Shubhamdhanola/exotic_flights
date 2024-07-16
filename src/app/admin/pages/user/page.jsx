@@ -1,10 +1,20 @@
 'use client'
-import { useState, useEffect } from 'react';
-import UserTable from '../../components/userTable/UserTable';
 import axios from 'axios';
+import UserTable from '../../components/userTable/UserTable';
+import ProtectedRoute from '../../components/ProtectedRoute';
+import { useState, useEffect } from 'react';
+
 
 const Users = () => {
+	// const router = useRouter();
 	const [users, setUsers] = useState([]);
+	// const { isLoggedIn } = useContext(AdminAuthContext);
+	// if (isLoggedIn) {
+
+	// }
+	// else {
+	// 	router.push('/admin/auth/sign-in');
+	// }
 
 	useEffect(() => {
 		axios({
@@ -30,4 +40,4 @@ const Users = () => {
 	);
 };
 
-export default Users;
+export default ProtectedRoute(Users);

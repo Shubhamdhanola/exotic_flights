@@ -1,19 +1,18 @@
-"use client"
-import React, { useContext } from 'react';
-import { useForm } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signInSchema, signUpSchema } from '../../schemas';
-import { toast, Toaster } from 'react-hot-toast';
-import { setCookie } from 'cookies-next';
-import { AuthContext } from './../../contexts/auth-context'
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import "../forms/style.css";
+import axios from 'axios'
+import { setCookie } from 'cookies-next'
+import React, { useContext } from 'react'
+import { useForm } from "react-hook-form"
+import { useRouter } from 'next/navigation'
+import { toast, Toaster } from 'react-hot-toast'
+import { zodResolver } from '@hookform/resolvers/zod'
+import "../forms/style.css"
+import { signInSchema, signUpSchema } from '../../../../schemas'
+import { AdminAuthContext } from '../../../../contexts/auth-context'
 
 const AuthForm = ({ mode }) => {
     const router = useRouter()
     const schema = mode === 'signUp' ? signUpSchema : signInSchema;
-    const auth = useContext(AuthContext)
+    const auth = useContext(AdminAuthContext)
 
     // Initialize useForm hook
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -47,7 +46,7 @@ const AuthForm = ({ mode }) => {
                 .then((res) => {
                     if (res.status == 200) {
                         setCookie('admin', res.data.admin.token, { path: '/' });
-                        router.push("/")
+                        router.push("/admin")
                         auth.login()
                     } else {
                         toast.error("Login Failed!");

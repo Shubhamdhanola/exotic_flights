@@ -1,3 +1,5 @@
+'use client'
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Dashboard = () => {
   return (
@@ -7,4 +9,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ProtectedRoute(Dashboard);

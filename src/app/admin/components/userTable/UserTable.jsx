@@ -13,7 +13,7 @@ const UserTable = ({ users }) => {
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr key={user.id}>
+              <tr key={user._id}>
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>

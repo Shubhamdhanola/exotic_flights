@@ -2,7 +2,7 @@ const HttpError = require("../models/http-error");
 const Admin = require("../models/admin");
 const jwt = require("jsonwebtoken");
 
-const authToken = async (req, res, next) => {
+const adminAuthToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
 
@@ -10,12 +10,11 @@ const authToken = async (req, res, next) => {
       const error = new HttpError("Authentication Failed!", 400);
       return next(error);
     }
-
     decodedToken = jwt.verify(token, "secret");
 
     if (decodedToken) {
       const admin = await Admin.findOne({ token: token });
-
+      
       if (admin.email !== decodedToken.email) {
         const error = new HttpError("Authentication Failed!", 400);
         return next(error);
@@ -33,4 +32,4 @@ const authToken = async (req, res, next) => {
   }
 };
 
-module.exports = authToken;
+module.exports = adminAuthToken;

@@ -1,10 +1,10 @@
 "use client"
-import AuthForm from '/src/components/forms/AuthForm'
+import AuthForm from '/src/app/admin/components/forms/AuthForm';
 import { motion, AnimatePresence } from "framer-motion";
 import '../styles/auth.css';
 import {headContainerAnimation } from "../../../../helpers/motion"
 
-const page = () => {
+const SignUp = () => {
     return (
         <AnimatePresence>
             <motion.div className='authContent flex flex-col mt-20 shadow-xl w-10/12 bg-white/30 backdrop-blur-sm  px-10 py-5 justify-evenly items-center' {...headContainerAnimation}>
@@ -19,4 +19,4 @@ const page = () => {
     )
 }
 
-export default page
+export default SignUp

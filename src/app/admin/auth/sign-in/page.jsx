@@ -1,10 +1,10 @@
 "use client"
-import AuthForm from "/src/components/forms/AuthForm"
+import AuthForm from "/src/app/admin/components/forms/AuthForm";
 import { motion, AnimatePresence } from "framer-motion";
 import '../styles/auth.css';
 import {headContainerAnimation } from "../../../../helpers/motion"
 
-const Page = () => {
+const SignIn = () => {
 
   return (
     <AnimatePresence>
@@ -20,4 +20,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default SignIn

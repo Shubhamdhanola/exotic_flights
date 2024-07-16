@@ -21,7 +21,6 @@ const signup = async (req, res, next) => {
         email: 'required|email',
         password: 'required|min:1',
         name: 'required|min:3',
-        // phone: 'integer|required|size:10',
     }
 
     const validation = new Validator(data, rules)
@@ -36,13 +35,13 @@ const signup = async (req, res, next) => {
     try{
         admin = await Admin.findOne({ email: email })
         if(admin === null) {
-            admin = new admin({
+            admin = new Admin({
                 name: name,
                 email: email,
                 password: bcrypt.hashSync(password, salt),
                 phone:phone
             });
-            admin = await Admin.save()
+            admin = await admin.save()
             res.status(200)
             res.json({ admin: admin.toObject({ getters: true }) })
         } else {
@@ -50,6 +49,7 @@ const signup = async (req, res, next) => {
             return next(error)
         }
     } catch (err) {
+        console.log(err)
         const error = new HttpError("Unable to signup admin", 400)
         return next(error)
     }
@@ -87,7 +87,7 @@ const login = async (req, res, next) => {
         if(bcrypt.compareSync(password, admin.password)){
             admin.token = jwt.sign({ adminId: admin.id, email: admin.email }, "secret");
             
-            await Admin.save()
+            await admin.save()
             res.status(200)
             res.json({ admin: admin.toObject({ getters: true }) })
         } else {
@@ -103,7 +103,7 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     if(req.adminData == undefined) {
-        const error = new HttpError('admin not logged in', 400)
+        const error = new HttpError('Admin not logged in', 400)
         return next(error)
     }
 
