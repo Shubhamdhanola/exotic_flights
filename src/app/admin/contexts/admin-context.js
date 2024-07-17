@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-const AdminAuthContext = createContext({
+export const AdminAuthContext = createContext({
   isLoggedIn: false,
   token: null,
   admin: null,
@@ -8,4 +8,3 @@ const AdminAuthContext = createContext({
   logout: () => {},
 });
 
-export { AdminAuthContext };
