@@ -1,55 +1,45 @@
 'use client';
-
-import './styles/admin.css';
-import Sidebar from './components/sidebar/Sidebar';
-import Navbar from './components/navbar/Navbar';
+import "./styles/admin.css";
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getCookie } from 'cookies-next';
 import { toast, Toaster } from 'react-hot-toast';
-import { AdminAuthContext } from '../../contexts/auth-context';
-import { useRouter } from 'next/navigation';
+import { AdminAuthContext } from './contexts/admin-context';
 
-export default function RootLayout({ children }) {
-	const router = useRouter();
+export default function AdminLayout({ children }) {
+    const router = useRouter();
 
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	useEffect(() => {
-		const adminCookie = getCookie('admin');
-		if (adminCookie) {
-			setIsLoggedIn(true);
-		} else {
-			router.push('/admin/auth/sign-in');
-		}
-	}, []);
+    useEffect(() => {
+        const adminCookie = getCookie('admin');
+        if (adminCookie) {
+            setIsLoggedIn(true);
+        } else {
+            router.push('/admin/auth');
+        }
+    }, []);
 
-	const login = () => {
-		toast.success('Login Successful!');
-		setIsLoggedIn(true);
-	};
+    const login = () => {
+        setIsLoggedIn(true);
+        toast.success('Welcome Admin!');
+        router.push('/admin');
+    };
 
-	const logout = () => {
-		toast.success('Logout Successful!');
-		setIsLoggedIn(false);
-		router.push('/admin/auth/sign-in'); 
-	};
+    const logout = () => {
+        setIsLoggedIn(false);
+        toast.success('Logout Successful!');
+        router.push('/admin/auth');
+    };
 
-	return (
-		<html>
-			<body>
-				<AdminAuthContext.Provider value={{ isLoggedIn, login, logout }}>
-					<div className="flex flex-col h-screen">
-						<Navbar />
-						<div className="flex flex-1">
-							<Sidebar />
-							<main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
-								{children}
-							</main>
-						</div>
-					</div>
-				</AdminAuthContext.Provider>
-				<Toaster />
-			</body>
-		</html>
-	);
+    return (
+        <html>
+            <body>
+                <AdminAuthContext.Provider value={{ isLoggedIn, login, logout }}>
+                    {children}
+                </AdminAuthContext.Provider>
+                <Toaster />
+            </body>
+        </html>
+    );
 }

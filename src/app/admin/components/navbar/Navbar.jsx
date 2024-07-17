@@ -1,24 +1,12 @@
-import { getCookie, deleteCookie, getCookies } from 'cookies-next';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
-import { AdminAuthContext } from "../../../../contexts/auth-context"  
-import { useState, useEffect } from 'react';
+import { deleteCookie, getCookies } from 'cookies-next';
+import { AdminAuthContext } from "../../contexts/admin-context"  
 
 const Navbar = () => {
-  const router = useRouter()
-  const cookie = getCookies('user')
+  const cookie = getCookies('admin')
   const auth = useContext(AdminAuthContext)
-  const [admin, setAdmin] = useState(()=>{
-		return getCookie('admin') ? true : false;
-	});
-  useEffect(() => {
-		const hasAdmin = getCookie('admin');
-		if (hasAdmin) {
-			setAdmin(true);
-		}
-	}, []);
-
+ 
   const handleLogout = async (e) => {
 		e.preventDefault();
     
@@ -29,9 +17,7 @@ const Navbar = () => {
 		}).then(res => {
 			if (res.status === 200) {
 				deleteCookie('admin');
-				setAdmin(false);
 				auth.logout()
-				router.push("/admin")
 			}
 		}).catch( (err) =>  {
 			console.error('Logout error:', err);

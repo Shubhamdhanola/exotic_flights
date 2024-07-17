@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form"
 import { useRouter } from 'next/navigation'
 import { toast, Toaster } from 'react-hot-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
-import "../forms/style.css"
+import "./style.css"
 import { signInSchema, signUpSchema } from '../../../../schemas'
-import { AdminAuthContext } from '../../../../contexts/auth-context'
+import { AdminAuthContext } from '../../contexts/admin-context'
 
 const AuthForm = ({ mode }) => {
     const router = useRouter()
@@ -29,6 +29,7 @@ const AuthForm = ({ mode }) => {
                 .then((res) => {
                     if (res.status == 200) {
                         toast.success('Your account has been created successfully');
+                        router.push("/admin")
                     } else {
                         toast.error("Failed to signup");
                     }
@@ -46,8 +47,7 @@ const AuthForm = ({ mode }) => {
                 .then((res) => {
                     if (res.status == 200) {
                         setCookie('admin', res.data.admin.token, { path: '/' });
-                        router.push("/admin")
-                        auth.login()
+                        auth.login()                        
                     } else {
                         toast.error("Login Failed!");
                     }
@@ -107,7 +107,6 @@ const AuthForm = ({ mode }) => {
                     <button type="submit" className="submit_btn">{mode == "signUp" ? 'Sign Up' : 'Sign In'}</button>
                 </div>
             </form>
-            <Toaster />
         </>
     );
 };

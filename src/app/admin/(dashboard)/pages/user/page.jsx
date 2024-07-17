@@ -1,20 +1,11 @@
 'use client'
 import axios from 'axios';
-import UserTable from '../../components/userTable/UserTable';
-import ProtectedRoute from '../../components/ProtectedRoute';
+import UserTable from '../../../components/userTable/UserTable';
 import { useState, useEffect } from 'react';
 
 
 const Users = () => {
-	// const router = useRouter();
 	const [users, setUsers] = useState([]);
-	// const { isLoggedIn } = useContext(AdminAuthContext);
-	// if (isLoggedIn) {
-
-	// }
-	// else {
-	// 	router.push('/admin/auth/sign-in');
-	// }
 
 	useEffect(() => {
 		axios({
@@ -40,4 +31,4 @@ const Users = () => {
 	);
 };
 
-export default ProtectedRoute(Users);
+export default Users;
