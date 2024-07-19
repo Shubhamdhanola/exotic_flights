@@ -3,7 +3,7 @@ import { setCookie } from 'cookies-next'
 import React, { useContext } from 'react'
 import { useForm } from "react-hook-form"
 import { useRouter } from 'next/navigation'
-import { toast, Toaster } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import "./style.css"
 import { signInSchema, signUpSchema } from '../../../../schemas'
