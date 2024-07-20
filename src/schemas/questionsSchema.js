@@ -3,15 +3,14 @@ import { z } from "zod";
 export const quesitonsSchema = z.object({
   question: z
     .string()
-    .min(1, "This field is required"),
+    .min(1, "Question is required"),
 
-    answer: z
-    .string()
-    .min(1, "This field is required"),
+    message: z
+    .string().optional(), 
 
     parentQuestion: z
-    .string(),
+    .string().optional(),
 
     nextQuestion: z
-    .array(z.string())
+    .array(z.string()).optional(),
 });
