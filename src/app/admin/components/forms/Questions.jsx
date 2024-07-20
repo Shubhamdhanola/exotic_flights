@@ -1,22 +1,61 @@
 'use client';
 
+import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import "./style.css";
 import { quesitonsSchema } from '../../../../schemas';
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
-const AuthForm = ({ mode }) => {
+const QuestionForm = () => {
+    const [parentQuestionData, setParentQuestionData] = useState([]);
+    const [selectedParentQuestion, setSelectedParentQuestion] = useState("");
+
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(quesitonsSchema),
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        const questionData = {
+            type: 'question',
+            level: null,
+            text: data.question || '',
+            answerText: data.message || '',
+            nextChats: data.nextQuestion || [],
+            parentChat: data.parentQuestion || null,
+        };
+        console.log(questionData);
+        try {
+            const add = await axios.post('http://localhost:8080/api/chatbot/chat/add', questionData);
+            setParentQuestionData(add.data);
+            toast.success('Question Added Successfully');
+        } catch (err) {
+            console.error(err);
+            toast.error('Failed to add question');
+        }
+    };
+
+    useEffect(() => {
+        const fetchParentQuestions = async () => {
+            try {
+                const res = await axios.get('http://localhost:8080/api/chatbot/chat/listing');
+                setParentQuestionData(res.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchParentQuestions();
+    }, []);
+
+    const handleParentChange = (event) => {
+        setSelectedParentQuestion(event.target.value);
     };
 
     return (
         <div className="form-wrapper">
-            <form onSubmit={handleSubmit(onSubmit)} id="" className="form">
+            <form onSubmit={handleSubmit(onSubmit)} id="questionForm" className="form">
                 <h2 className="form-title">Add Questions</h2>
                 <div className="form-group">
                     <label htmlFor="question" className="form-label">Question</label>
@@ -29,25 +68,27 @@ const AuthForm = ({ mode }) => {
                     {errors.question && <p className="form-error">{errors.question.message}</p>}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="answer" className="form-label">Answer</label>
+                    <label htmlFor="answer" className="form-label">Message</label>
                     <input
                         type="text"
-                        id="answer"
-                        {...register('answer')}
-                        className={`form-input ${errors.answer ? 'form-input-error' : ''}`}
+                        id="message"
+                        {...register('message')}
+                        className={`form-input ${errors.message ? 'form-input-error' : ''}`}
                     />
-                    {errors.answer && <p className="form-error">{errors.answer.message}</p>}
+                    {errors.message && <p className="form-error">{errors.message.message}</p>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="parentQuestion" className="form-label">Parent Question</label>
                     <select
                         id="parentQuestion"
                         {...register('parentQuestion')}
+                        onChange={handleParentChange}
                         className={`form-input ${errors.parentQuestion ? 'form-input-error' : ''}`}
                     >
-                        <option value="Apple">Apple</option>
-                        <option value="Orange">Orange</option>
-                        <option value="Pine">Pine</option>
+                        <option value="">Select Parent Question</option>
+                        {parentQuestionData && parentQuestionData.map((item, index) => (
+                            <option value={item._id} key={index}>{item.text}</option>
+                        ))}
                     </select>
                     {errors.parentQuestion && <p className="form-error">{errors.parentQuestion.message}</p>}
                 </div>
@@ -59,16 +100,18 @@ const AuthForm = ({ mode }) => {
                         className={`form-input ${errors.nextQuestion ? 'form-input-error' : ''}`}
                         multiple
                     >
-                        <option value="Red">Red</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Yellow">Yellow</option>
+                        {parentQuestionData && parentQuestionData
+                            .filter(item => item._id !== selectedParentQuestion)
+                            .map((item, index) => (
+                                <option value={item._id} key={index}>{item.text}</option>
+                            ))}
                     </select>
                     {errors.nextQuestion && <p className="form-error">{errors.nextQuestion.message}</p>}
                 </div>
-                <button type="submit" className="form-button">{mode === "signUp" ? 'Sign Up' : 'Sign In'}</button>
+                <button type="submit" className="form-button">Submit</button>
             </form>
         </div>
     );
 };
 
-export default AuthForm;
+export default QuestionForm;
