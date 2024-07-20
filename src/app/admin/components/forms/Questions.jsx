@@ -63,7 +63,7 @@ const QuestionForm = () => {
                         type="text"
                         id="question"
                         {...register('question')}
-                        className={`form-input ${errors.question ? 'form-input-error' : ''}`}
+                        className='form-input'
                     />
                     {errors.question && <p className="form-error">{errors.question.message}</p>}
                 </div>
@@ -73,7 +73,7 @@ const QuestionForm = () => {
                         type="text"
                         id="message"
                         {...register('message')}
-                        className={`form-input ${errors.message ? 'form-input-error' : ''}`}
+                        className='form-input'
                     />
                     {errors.message && <p className="form-error">{errors.message.message}</p>}
                 </div>
@@ -83,7 +83,7 @@ const QuestionForm = () => {
                         id="parentQuestion"
                         {...register('parentQuestion')}
                         onChange={handleParentChange}
-                        className={`form-input ${errors.parentQuestion ? 'form-input-error' : ''}`}
+                        className='form-input'
                     >
                         <option value="">Select Parent Question</option>
                         {parentQuestionData && parentQuestionData.map((item, index) => (
@@ -97,7 +97,7 @@ const QuestionForm = () => {
                     <select
                         id="nextQuestion"
                         {...register('nextQuestion')}
-                        className={`form-input ${errors.nextQuestion ? 'form-input-error' : ''}`}
+                        className='form-input'
                         multiple
                     >
                         {parentQuestionData && parentQuestionData
