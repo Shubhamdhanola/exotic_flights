@@ -124,7 +124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"type\": \"question\",\n    \"level\": 2,\n    \"text\": \"question3\",\n    \"answerText\": \"if any\",\n    \"nextChats\": null,\n    \"parentChat\": \"6685625b04df3890103ac33b\"\n}",
+							"raw": "{\n    \"type\": \"question\",\n    \"level\": 2,\n    \"text\": \"question3\",\n    \"answerText\": \"if any\",\n    \"nextChats\": null,\n    \"parentChat\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,10 +250,10 @@
 				{
 					"name": "Get Chat (Frontend)",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/chatbot/chat/6685624e04df3890103ac339",
+							"raw": "http://localhost:8080/api/chatbot/chat/delete/669c8b984ba988774ec496d9",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -263,7 +263,30 @@
 								"api",
 								"chatbot",
 								"chat",
-								"6685624e04df3890103ac339"
+								"delete",
+								"669c8b984ba988774ec496d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Chat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/chat/669c8b984ba988774ec496d9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"chat",
+								"669c8b984ba988774ec496d9"
 							]
 						}
 					},

@@ -42,9 +42,9 @@ const addChat = async (req, res) => {
         res.status(400).json("Something's Wrong");
       }
     }
-
     const savedChat = await newChat.save()
     res.status(201).json(savedChat);
+
 
   } catch (err) {
     console.log(err)
@@ -213,6 +213,27 @@ const getSingleChat = async (req, res) => {
   }
 }
 
+const deleteChat = async (req, res) => {
+  const chatId = req.params.id
+  let chat;
+
+  try {
+    chat = await Chat.findById(chatId)
+    if(chat != null) {
+      let deletedChat = await Chat.findByIdAndDelete(chatId)
+      if(deletedChat) {
+        res.status(200).json({ status: true })
+      } else {
+        res.status(400).json({ error: "Something's Wrong" })
+      }
+    } else {
+      res.status(400).json({ error: "Chat Not Found" })
+    }
+  } catch (err) {
+    res.status(400).json({ error: "Failed to find chats" });
+  }
+}
+
 exports.chat = chat
 exports.addChat = addChat
 exports.updateChat = updateChat
@@ -220,3 +241,4 @@ exports.getAllChats = getAllChats
 exports.getFirstAllChats = getFirstAllChats
 exports.getSingleChat = getSingleChat
 exports.getAllListing = getAllListing
+exports.deleteChat = deleteChat

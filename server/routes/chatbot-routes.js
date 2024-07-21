@@ -17,4 +17,6 @@ router.get('/chat/:id', chatbotController.getSingleChat)
 
 router.post('/chat/update/:id', chatbotController.updateChat)
 
+router.post('/chat/delete/:id', chatbotController.deleteChat)
+
 module.exports = router;
