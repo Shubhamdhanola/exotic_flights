@@ -203,11 +203,44 @@ const getFirstAllChats = async (req, res) => {
 
 const getSingleChat = async (req, res) => {
   const chatId = req.params.id
+  console.log(chatId)
   let chat;
 
   try {
     chat = await Chat.findById(chatId)
     res.status(200).json(chat)
+  } catch (err) {
+    res.status(400).json({ error: "Failed to find chats" });
+  }
+}
+
+const getNextChats = async (req, res) => {
+  const chatId = req.params.id
+  console.log(chatId)
+  let chats;
+
+  try {
+    chats = await Chat.aggregate([
+      {
+        $project: {
+          id: 1,
+          text: 1,
+          nextChats: 1,
+          parentChat: 1
+        }
+      },
+      {
+        $sort: {
+            date : -1
+        }
+      },
+      {
+        $match: {
+          parentChat: chatId
+        }
+      }
+    ])
+    res.status(200).json(chats)
   } catch (err) {
     res.status(400).json({ error: "Failed to find chats" });
   }
@@ -242,3 +275,4 @@ exports.getFirstAllChats = getFirstAllChats
 exports.getSingleChat = getSingleChat
 exports.getAllListing = getAllListing
 exports.deleteChat = deleteChat
+exports.getNextChats = getNextChats

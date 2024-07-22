@@ -13,6 +13,8 @@ router.get('/chat/listing', chatbotController.getAllChats)
 
 router.get('/chat/listing/first', chatbotController.getFirstAllChats)
 
+router.get('/chat/get-next-chats/:id', chatbotController.getNextChats)
+
 router.get('/chat/:id', chatbotController.getSingleChat)
 
 router.post('/chat/update/:id', chatbotController.updateChat)

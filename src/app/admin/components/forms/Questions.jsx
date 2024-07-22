@@ -28,7 +28,7 @@ const QuestionForm = () => {
         console.log(questionData);
         try {
             const add = await axios.post('http://localhost:8080/api/chatbot/chat/add', questionData);
-            setParentQuestionData(add.data);
+            // setParentQuestionData(add.data);
             toast.success('Question Added Successfully');
         } catch (err) {
             console.error(err);
