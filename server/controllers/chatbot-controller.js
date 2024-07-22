@@ -42,6 +42,11 @@ const addChat = async (req, res) => {
         res.status(400).json("Something's Wrong");
       }
     }
+
+    if(nextChats && nextChats.length > 0) {
+      nextChats.forEach(item => {})
+    }
+
     const savedChat = await newChat.save()
     res.status(201).json(savedChat);
 
