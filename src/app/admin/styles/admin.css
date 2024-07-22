@@ -38,6 +38,10 @@
     .submit_btn {
       @apply rounded-xl border py-1.5 text-sm bg-white text-black font-medium transition-all hover:bg-black hover:text-white hover:border-black shadow-lg shadow-gray-700 px-2 lg:px-6 md:px-6;
     }
+    
+    .customButton {
+      @apply font-bold rounded-full border border-green-200 bg-green-400 py-1.5 px-4 text-xs text-black transition-all hover:bg-white hover:text-black shadow-lg shadow-gray-300;
+    }
   
   }
 
@@ -47,6 +51,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: rgba(207, 207, 189, 0.299);
   }
   
   .dashboard-table {
@@ -66,7 +71,7 @@
   }
   
   .dashboard-table tbody tr:nth-child(even) {
-    background: rgba(157, 157, 157, 0.6); 
+    background: rgba(93, 125, 189, 0.305); 
   }
   
   .dashboard-table tbody tr:hover {

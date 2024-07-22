@@ -25,10 +25,8 @@ const QuestionForm = () => {
             nextChats: data.nextQuestion || [],
             parentChat: data.parentQuestion || null,
         };
-        console.log(questionData);
         try {
             const add = await axios.post('http://localhost:8080/api/chatbot/chat/add', questionData);
-            // setParentQuestionData(add.data);
             toast.success('Question Added Successfully');
         } catch (err) {
             console.error(err);
@@ -56,7 +54,6 @@ const QuestionForm = () => {
     return (
         <div className="form-wrapper">
             <form onSubmit={handleSubmit(onSubmit)} id="questionForm" className="form">
-                <h2 className="form-title">Add Questions</h2>
                 <div className="form-group">
                     <label htmlFor="question" className="form-label">Question</label>
                     <input
