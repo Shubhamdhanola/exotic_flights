@@ -25,6 +25,11 @@ export default function RootLayout({ children }) {
 		setIsLoggedIn(false)
 	}
 
+	const error = (error) => {
+		toast.error(error);
+		setIsLoggedIn(false)
+	}
+
 	useEffect(() => {
 		if (getCookie('user')) {
 			setIsLoggedIn(true)
@@ -38,7 +43,7 @@ export default function RootLayout({ children }) {
 					<div className="gradient" />
 				</div>
 				<AuthContext.Provider
-					value={{ isLoggedIn, login, logout }}
+					value={{ isLoggedIn, login, logout, error }}
 				>
 					<div className="root">
 						<Navbar />

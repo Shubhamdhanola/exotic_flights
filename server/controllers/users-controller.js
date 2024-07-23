@@ -180,8 +180,20 @@ const getUsers = async (req, res, next) => {
     }
 }
 
+const deleteUser = async (req, res, next) => {
+    const { userId } = req.params;
+    try {
+        const user = await User.findByIdAndDelete(userId)
+        res.status(200).json({ user })
+    } catch (err) {
+        const error = new HttpError('Unable to delete user', 400)
+        return next(error)
+    }
+}
+
 
 exports.signup = signup
 exports.login = login   
 exports.logout = logout 
 exports.getUsers = getUsers 
+exports.deleteUser = deleteUser 

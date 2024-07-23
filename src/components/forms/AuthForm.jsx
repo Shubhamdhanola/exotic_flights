@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signInSchema, signUpSchema } from '../../schemas';
-import { toast, Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { setCookie } from 'cookies-next';
 import { AuthContext } from './../../contexts/auth-context'
 import { useRouter } from 'next/navigation';
@@ -31,7 +31,6 @@ const AuthForm = ({ mode }) => {
                     if (res.status == 200) {
                         toast.success('Your account has been created successfully');
                     } else {
-                        toast.error("Failed to signup");
                     }
                 })
                 .catch((err) => {
@@ -47,6 +46,7 @@ const AuthForm = ({ mode }) => {
                 .then((res) => {
                     if (res.status == 200) {
                         setCookie('user', res.data.user.token, { path: '/' });
+                        setCookie('userId', res.data.user._id, { path: '/' });
                         router.push("/")
                         auth.login()
                     } else {
@@ -108,7 +108,6 @@ const AuthForm = ({ mode }) => {
                     <button type="submit" className="submit_btn">{mode == "signUp" ? 'Sign Up' : 'Sign In'}</button>
                 </div>
             </form>
-            <Toaster />
         </>
     );
 };

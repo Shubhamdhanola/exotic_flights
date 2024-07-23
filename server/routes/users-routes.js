@@ -12,4 +12,6 @@ router.get('/logout', authToken, usersController.logout)
 
 router.get('/', usersController.getUsers)
 
+router.get('/delete/:userId', usersController.deleteUser)
+
 module.exports = router;
