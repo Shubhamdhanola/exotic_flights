@@ -16,7 +16,7 @@ export default function Home() {
             <div >
               <Typewriter
                 options={{
-                  strings: ['Fligts', 'Services', 'Ventures'],
+                  strings: ['Flights', 'Services', 'Ventures'],
                   autoStart: true,
                   loop: true,
                 }}

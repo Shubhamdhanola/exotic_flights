@@ -56,7 +56,7 @@ const Navbar = () => {
 			{mobileView ? "" :
 				<motion.nav className="flex justify-between items-center backdrop-blur-sm w-3/4 gap-10  max-sm:w-full" {...slideAnimation('right')}>
 					<motion.div className="logo" {...slideAnimation('down')}>
-						<h2 className="gradientText shadow-lg py-2.5 px-5 font-bold rounded-full ">Exotic Fligts</h2>
+						<h2 className="gradientText shadow-lg py-2.5 px-5 font-bold rounded-full ">Exotic Flights</h2>
 					</motion.div>
 
 					<div className="flex flex-1 gap-5 items-center max-sm:hidden">
@@ -87,7 +87,7 @@ const Navbar = () => {
 				<motion.div className="w-full absolute h-dvh z-10 top-0 bg-white/70" {...slideAnimation('down')}>
 					<div className="flex flex-col items-left justify-top w-full px-3 h-full gap-2 pt-5">
 						<div className="flex  justify-between items-center mb-2">
-							<h2 className="gradientText shadow-lg py-2.5 px-5 font-bold rounded-full ">Exotic Fligts</h2>
+							<h2 className="gradientText shadow-lg py-2.5 px-5 font-bold rounded-full ">Exotic Flights</h2>
 							<Image src="/icons/x-letter.svg" height="30" width="30" alt="" className="close" onClick={handleDropdown}></Image>
 						</div>
 						<Link href="/" className="black_btn"> Home</Link>
