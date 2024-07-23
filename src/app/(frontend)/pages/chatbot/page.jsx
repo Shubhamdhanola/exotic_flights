@@ -41,9 +41,8 @@ const Page = () => {
     let selectedQuestion = currentQuestionList[index]
     setCurrentQuestionList([])
     if(Array.isArray(selectedQuestion.nextChats) && selectedQuestion.nextChats.length > 0) {
-      let allChats = [];
       let nextChats = await axios.get(`http://localhost:8080/api/chatbot/chat/get-next-chats/${selectedQuestion._id}`);
-      console.log(nextChats)
+      setCurrentQuestionList(nextChats.data)
       
     } else {
       setFinalMessage(true)
