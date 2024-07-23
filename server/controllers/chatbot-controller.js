@@ -43,9 +43,12 @@ const addChat = async (req, res) => {
         res.status(400).json("Something's Wrong");
       }
     }
-
     if(nextChats && nextChats.length > 0) {
-      nextChats.forEach(item => {})
+      for (let i = 0; i < nextChats.length; i++) {
+        let getChats = await Chat.findById(nextChats[i])
+        getChats.parentChat = newChat._id
+        getChats.save()
+      }
     }
 
     const savedChat = await newChat.save()
@@ -224,30 +227,31 @@ const getSingleChat = async (req, res) => {
 
 const getNextChats = async (req, res) => {
   const chatId = req.params.id
-  console.log(chatId)
   let chats;
 
   try {
-    chats = await Chat.aggregate([
-      {
-        $project: {
-          id: 1,
-          text: 1,
-          nextChats: 1,
-          parentChat: 1
-        }
-      },
-      {
-        $sort: {
-            date : -1
-        }
-      },
-      {
-        $match: {
-          parentChat: chatId
-        }
-      }
-    ])
+    // chats = await Chat.aggregate([
+    //   {
+    //     $project: {
+    //       id: 1,
+    //       text: 1,
+    //       nextChats: 1,
+    //       parentChat: 1
+    //     }
+    //   },
+    //   {
+    //     $sort: {
+    //         date : -1
+    //     }
+    //   },
+    //   {
+    //     $match: {
+    //       parentChat: null
+    //     }
+    //   }
+    // ])
+
+    chats = await Chat.find({ parentChat: chatId })
     res.status(200).json(chats)
   } catch (err) {
     res.status(400).json({ error: "Failed to find chats" });
