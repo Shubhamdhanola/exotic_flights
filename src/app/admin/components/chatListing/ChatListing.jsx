@@ -5,6 +5,16 @@ import { useState, useEffect } from 'react';
 const ChatListing = () => {
     const [chats, setChats] = useState([]);
 
+    const deleteChat = async (id) => {
+        try {
+            await axios.post(`http://localhost:8080/api/chatbot/chat/delete/${id}`);
+            const res = await axios.get('http://localhost:8080/api/chatbot/chats/');
+            setChats(res.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
         const fetchParentQuestions = async () => {
             try {
@@ -39,7 +49,7 @@ const ChatListing = () => {
                                 <td>
                                     <div className='flex gap-2'>
                                         <button className='customButton' >Update</button>
-                                        <button className='customButton bg-rose-700'>Delete</button>
+                                        <button className='customButton bg-rose-700' onClick={() => deleteChat(chat._id)}>Delete</button>
                                     </div>
                                 </td>
                             </tr>

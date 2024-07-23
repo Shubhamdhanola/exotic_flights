@@ -1,3 +1,4 @@
+const { type } = require("os");
 const Chat = require("../models/chatbot");
 
 const chat = async (req, res) => {
@@ -142,6 +143,9 @@ const getAllChats = async (req, res) => {
   try {
     chats = await Chat.aggregate([
       {
+        $match: { type: 'question' }
+      },
+      {
         $project: {
           id: 1,
           text: 1
@@ -161,7 +165,6 @@ const getAllChats = async (req, res) => {
 
 const getAllListing = async (req, res) => {
   let chats;
-
   try {
     chats = await Chat.aggregate([
       {
