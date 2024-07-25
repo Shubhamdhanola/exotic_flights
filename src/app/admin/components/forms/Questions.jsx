@@ -8,29 +8,45 @@ import { quesitonsSchema } from '../../../../schemas';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-const QuestionForm = () => {
+const QuestionForm = ({ editMode = false, data }) => {
     const [parentQuestionData, setParentQuestionData] = useState([]);
     const [selectedParentQuestion, setSelectedParentQuestion] = useState("");
-
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: zodResolver(quesitonsSchema),
+        defaultValues: {
+            question: data?.text || '',
+            message: data?.answerText || '',
+            parentQuestion: data?.parentChat || '',
+            nextQuestion: data?.nextChats || []
+        }
     });
+    
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (formData) => {
         const questionData = {
             type: 'question',
             level: null,
-            text: data.question || '',
-            answerText: data.message || '',
-            nextChats: data.nextQuestion || [],
-            parentChat: data.parentQuestion || null,
+            text: formData.question || '',
+            answerText: formData.message || '',
+            nextChats: formData.nextQuestion || [],
+            parentChat: formData.parentQuestion || null,
         };
+
         try {
-            const add = await axios.post('http://localhost:8080/api/chatbot/chat/add', questionData);
-            toast.success('Question Added Successfully');
+            if (editMode && data?.id) {
+                // Update existing question
+                await axios.put(`http://localhost:8080/api/chatbot/chat/update/${data.id}`, questionData);
+                toast.success('Question Updated Successfully');
+            } else {
+                // Add new question
+                await axios.post('http://localhost:8080/api/chatbot/chat/add', questionData);
+                toast.success('Question Added Successfully');
+            }
+            reset();
         } catch (err) {
             console.error(err);
-            toast.error('Failed to add question');
+            toast.error('Failed to save question');
         }
     };
 
@@ -105,7 +121,7 @@ const QuestionForm = () => {
                     </select>
                     {errors.nextQuestion && <p className="form-error">{errors.nextQuestion.message}</p>}
                 </div>
-                <button type="submit" className="form-button">Submit</button>
+                <button type="submit" className="form-button">{editMode ? 'Update' : 'Submit'}</button>
             </form>
         </div>
     );

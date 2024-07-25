@@ -1,7 +1,6 @@
 'use client'
 import "./styles/frontend.css";
 import Navbar from "../../components/navbar/Navbar";
-import Chatbot from "../../components/chatbot/Chatbot";
 import { AuthContext } from "../../contexts/auth-context"
 import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";

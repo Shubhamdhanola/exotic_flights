@@ -180,6 +180,17 @@ const getUsers = async (req, res, next) => {
     }
 }
 
+const getUserbyId = async (req, res, next) => {
+    const { userId } = req.params;
+    try {
+        const user = await User.findById(userId)
+        res.status(200).json({ user })
+    } catch (err) {
+        const error = new HttpError('Unable to fetch User', 400)
+        return next(error)
+    }
+}
+
 const deleteUser = async (req, res, next) => {
     const { userId } = req.params;
     try {
@@ -197,3 +208,4 @@ exports.login = login
 exports.logout = logout 
 exports.getUsers = getUsers 
 exports.deleteUser = deleteUser 
+exports.getUserbyId = getUserbyId 

@@ -3,16 +3,13 @@ import axios from 'axios';
 import Questions from '../../../../../components/forms/Questions'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const Add = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [id, setId] = useState(null);
-    console.log(id);
-    const routeModule = useRouter()
-    const handleClick = () => {
-        routeModule.push('/admin/pages/user/')
-    }
+    const [chatData, setChatData] = useState([]);
 
     useEffect(() => {
         const idFromPath = pathname.split('/').pop();
@@ -29,9 +26,8 @@ const Add = () => {
         const fetchChatData = async () => {
             if (id) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/api/chat/${id}`);
-                    const allQues = response.data.nextChats;
-                    console.log(allQues);
+                    const response = await axios.get(`http://localhost:8080/api/chatbot/chat/${id}`);
+                    setChatData(response.data);
                 } catch (err) {
                     console.log('Failed to load chat data.');
                 }
@@ -45,9 +41,9 @@ const Add = () => {
         <div className='flex flex-col p-2 gap-4'>
             <div className='flex justify-between items-center bg-amber-100 p-2'>
                 <h1 className='font-bold'>Hey Admin! You can edit your question here</h1>
-                <button className='black_btn' onClick={handleClick}>Go Back</button>
+                <Link className='black_btn' href='/admin/pages/chat/'>Go Back</Link>
             </div>
-            <Questions />
+            <Questions editMore={true} data={chatData} />
         </div>
     )
 }
