@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const ChatListing = () => {
     const [chats, setChats] = useState([]);
@@ -48,7 +49,7 @@ const ChatListing = () => {
                                 <td>{chat.type}</td>
                                 <td>
                                     <div className='flex gap-2'>
-                                        <button className='customButton' >Update</button>
+                                        <Link className='customButton bg-green-400' href={`/admin/pages/chat/update/${chat._id}`}>Update Chat</Link>
                                         <button className='customButton bg-rose-700' onClick={() => deleteChat(chat._id)}>Delete</button>
                                     </div>
                                 </td>

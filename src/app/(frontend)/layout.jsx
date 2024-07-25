@@ -50,12 +50,9 @@ export default function RootLayout({ children }) {
 						<div className="w-10/12 flex justify-center items-center">
 							{children}
 						</div>
-						<div className="absolute top-[75%] right-2">
-							{isLoggedIn ? <Chatbot /> : ''}
-						</div>
 					</div>
 				</AuthContext.Provider>
-				<Toaster></Toaster>	
+				<Toaster></Toaster>
 			</body>
 		</html>
 	);

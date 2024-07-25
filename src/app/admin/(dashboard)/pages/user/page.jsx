@@ -1,8 +1,5 @@
 'use client'
-import axios from 'axios';
 import UserTable from '../../../components/userTable/UserTable';
-import { useState, useEffect } from 'react';
-
 
 const Users = () => {
 	

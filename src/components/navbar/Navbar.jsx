@@ -15,7 +15,7 @@ const Navbar = () => {
 	// Fetching the user's cookie
 	const auth = useContext(AuthContext)
 	const [mobileView, setMobileView] = useState(false);
-	const [user, setUser] = useState(()=>{
+	const [user, setUser] = useState(() => {
 		return getCookie('user') ? true : false;
 	});
 
@@ -30,7 +30,7 @@ const Navbar = () => {
 		e.preventDefault();
 		setMobileView((prev) => !prev);
 	};
-	
+
 	// Handling logout 
 	const handleLogout = async (e) => {
 		const cookie = getCookies('user')
@@ -46,7 +46,7 @@ const Navbar = () => {
 				auth.logout()
 				router.push("/")
 			}
-		}).catch( (err) =>  {
+		}).catch((err) => {
 			console.error('Logout error:', err);
 		})
 	};
@@ -62,7 +62,11 @@ const Navbar = () => {
 					<div className="flex flex-1 gap-5 items-center max-sm:hidden">
 						<Link href="/" className="url_input"> Home</Link>
 						<Link href="/pages/aboutus" className="url_input"> About us</Link>
-						<Link href="/pages/services" className="url_input"> Services</Link>
+						{
+							auth && auth.isLoggedIn ?
+								<Link href="/pages/chat-with-us" className="url_input"> Chat With Us</Link>
+								: ''
+						}
 					</div>
 
 					{auth && auth.isLoggedIn ?
