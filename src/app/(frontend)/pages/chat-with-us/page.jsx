@@ -149,14 +149,14 @@ const Page = () => {
                             Thank you for reaching out to us. Our agent will contact you shortly!
                         </div>
                     )}
-                    <form onSubmit={handleSubmit(handleChat)} className='flex w-full justify-center items-center gap-5'>
+                    {/* <form onSubmit={handleSubmit(handleChat)} className='flex w-full justify-center items-center gap-5'>
                         <textarea
                             className='shadow-lg border-2 w-3/4 h-16 p-2'
                             name="chats"
                             {...register('chats', { required: true })}
                         ></textarea>
                         <button type="submit" className="submit_btn py-3 px-4">Submit</button>
-                    </form>
+                    </form> */}
                 </div>
             </div>
         </>
