@@ -214,7 +214,7 @@ const getFirstAllChats = async (req, res) => {
 
 const getSingleChat = async (req, res) => {
   const chatId = req.params.id
-  console.log(chatId)
+  // console.log(chatId)
   let chat;
 
   try {

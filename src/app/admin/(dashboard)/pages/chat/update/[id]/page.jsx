@@ -9,7 +9,7 @@ const Add = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [id, setId] = useState(null);
-    const [chatData, setChatData] = useState([]);
+    const [chatData, setChatData] = useState(null);
 
     useEffect(() => {
         const idFromPath = pathname.split('/').pop();
@@ -43,7 +43,10 @@ const Add = () => {
                 <h1 className='font-bold'>Hey Admin! You can edit your question here</h1>
                 <Link className='black_btn' href='/admin/pages/chat/'>Go Back</Link>
             </div>
-            <Questions editMore={true} data={chatData} />
+            {
+                chatData &&
+                <Questions editMode={true} data={chatData} />
+            }
         </div>
     )
 }

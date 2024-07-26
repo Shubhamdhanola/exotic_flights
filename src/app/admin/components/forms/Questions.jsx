@@ -7,10 +7,13 @@ import "./style.css";
 import { quesitonsSchema } from '../../../../schemas';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const QuestionForm = ({ editMode = false, data }) => {
     const [parentQuestionData, setParentQuestionData] = useState([]);
-    const [selectedParentQuestion, setSelectedParentQuestion] = useState("");
+    const [selectedParentQuestion, setSelectedParentQuestion] = useState(data?.parentChat || '');
+    const [selectedNextQuestion, setSelectedNextQuestion] = useState(data?.nextChats || [] );
+    const router = useRouter();
     
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: zodResolver(quesitonsSchema),
@@ -34,15 +37,16 @@ const QuestionForm = ({ editMode = false, data }) => {
         };
 
         try {
-            if (editMode && data?.id) {
+            if (editMode && data._id) {
                 // Update existing question
-                await axios.put(`http://localhost:8080/api/chatbot/chat/update/${data.id}`, questionData);
+                await axios.post(`http://localhost:8080/api/chatbot/chat/update/${data._id}`, questionData);
                 toast.success('Question Updated Successfully');
             } else {
                 // Add new question
                 await axios.post('http://localhost:8080/api/chatbot/chat/add', questionData);
                 toast.success('Question Added Successfully');
             }
+            router.push("/admin/pages/chat")
             reset();
         } catch (err) {
             console.error(err);
@@ -59,7 +63,6 @@ const QuestionForm = ({ editMode = false, data }) => {
                 console.error(err);
             }
         };
-
         fetchParentQuestions();
     }, []);
 
@@ -77,6 +80,7 @@ const QuestionForm = ({ editMode = false, data }) => {
                         id="question"
                         {...register('question')}
                         className='form-input'
+                        // value={}
                     />
                     {errors.question && <p className="form-error">{errors.question.message}</p>}
                 </div>
@@ -97,6 +101,7 @@ const QuestionForm = ({ editMode = false, data }) => {
                         {...register('parentQuestion')}
                         onChange={handleParentChange}
                         className='form-input'
+                        value={selectedParentQuestion}
                     >
                         <option value="">Select Parent Question</option>
                         {parentQuestionData && parentQuestionData.map((item, index) => (
@@ -112,6 +117,11 @@ const QuestionForm = ({ editMode = false, data }) => {
                         {...register('nextQuestion')}
                         className='form-input'
                         multiple
+                        value={selectedNextQuestion}
+                        onChange={(e)=>{
+                            const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+                            setSelectedNextQuestion(selectedOptions)
+                        }}
                     >
                         {parentQuestionData && parentQuestionData
                             .filter(item => item._id !== selectedParentQuestion)
