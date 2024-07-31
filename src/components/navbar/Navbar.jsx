@@ -15,14 +15,17 @@ const Navbar = () => {
 	// Fetching the user's cookie
 	const auth = useContext(AuthContext)
 	const [mobileView, setMobileView] = useState(false);
+	const [userId , setUserId] = useState(null);
 	const [user, setUser] = useState(() => {
 		return getCookie('user') ? true : false;
 	});
-
+	
 	useEffect(() => {
 		const hasUser = getCookie('user');
+		const userId = getCookie('userId');
 		if (hasUser) {
 			setUser(true);
+			setUserId(userId);
 		}
 	}, []);
 
@@ -63,14 +66,15 @@ const Navbar = () => {
 						<Link href="/" className="url_input"> Home</Link>
 						<Link href="/pages/aboutus" className="url_input"> About us</Link>
 						{
-							auth && auth.isLoggedIn ?
-								<Link href="/pages/chat-with-us" className="url_input"> Chat With Us</Link>
+							auth && auth.isLoggedIn ?								
+								<Link href="/pages/chat-with-us" className="url_input"> Chat With Us</Link>							
 								: ''
 						}
 					</div>
 
 					{auth && auth.isLoggedIn ?
 						<div className="flex gap-3 items-center max-sm:hidden">
+							<Link href={`/pages/chat-history/${userId}`} className="url_input"> Chat History</Link>
 							<button className="black_btn" onClick={handleLogout}> Logout</button>
 						</div>
 						:
@@ -97,6 +101,7 @@ const Navbar = () => {
 						<Link href="/" className="black_btn"> Home</Link>
 						<Link href="/pages/aboutus" className="black_btn"> About us</Link>
 						<Link href="/pages/services" className="black_btn"> Services</Link>
+						<Link href="/pages/chat-with-us" className="black_btn"> Chat With Us</Link>
 						<Link href="/auth/sign-in" className="black_btn" > Signin</Link>
 						<Link href="/auth/sign-up" className="black_btn"> Signup</Link>
 					</div>

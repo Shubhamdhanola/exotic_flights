@@ -7,7 +7,7 @@ import { getCookie } from "cookies-next";
 
 const Page = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const { register, handleSubmit, reset } = useForm();
+    const { reset } = useForm();
     const [currentQuestionList, setCurrentQuestionList] = useState([]);
     const [selectedQuestionList, setSelectedQuestionList] = useState([]);
     const [finalMessage, setFinalMessage] = useState(false);
@@ -138,7 +138,7 @@ const Page = () => {
                     <div className={`flex flex-col gap-2`}>
                         {currentQuestionList && currentQuestionList.map((item, index) => (
                             <div key={item._id} onClick={() => handleChatClick(index)} className={`chatMessage w-1/3 p-2 font-semibold rounded-xl bg-gray-900 text-slate-50 cursor-pointer px-6`}>
-                                👉 {item.text}
+                                ✈️ {item.text}
                             </div>
                         ))}
                     </div>
